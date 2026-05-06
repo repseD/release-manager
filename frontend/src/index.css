@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Твои кастомные стили, если нужны */
+body {
+  @apply bg-slate-950 text-slate-200;
+}
