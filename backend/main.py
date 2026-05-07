@@ -8,11 +8,18 @@ import os
 
 app = FastAPI(title="Band Release Manager API")
 
-AUDIO_DIR = "audio_files"
-if not os.path.exists(AUDIO_DIR):
-    os.makedirs(AUDIO_DIR)
+MUSIC_PATH = "/home/as-eternum/Музыка/Demos" #вставить свой путь
 
-app.mount("/audio", StaticFiles(directory=AUDIO_DIR), name="audio")
+if not os.path.exists(MUSIC_PATH):
+    print(f"WARNING: Path {MUSIC_PATH} does not exist!")
+else:
+    app.mount("/audio", StaticFiles(directory=MUSIC_PATH), name="audio")
+
+# AUDIO_DIR = "audio_files"
+# if not os.path.exists(AUDIO_DIR):
+#     os.makedirs(AUDIO_DIR)
+
+# app.mount("/audio", StaticFiles(directory=AUDIO_DIR), name="audio")
 
 app.add_middleware(
     CORSMiddleware,
@@ -42,11 +49,18 @@ def delete_track(track_id: int):
     return {"message": "Deleted successfully"}
 
 @app.patch("/tracks/{track_id}/bpm", response_model=Track)
-def update_track_bpm(track_id: int, bpm: int): # <--- Имя переменной должно быть bpm!
+def update_track_bpm(track_id: int, bpm: int):
     updated = track_repo.update_bpm(track_id, bpm)
     if not updated:
         raise HTTPException(status_code=404, detail="Track not found")
     return updated
+
+@app.patch("/tracks/{track_id}/lyrics")
+async def update_track_lyrics(track_id: int, data: dict):
+    success = track_repo.update_lyrics(track_id, data.get("lyrics"))
+    if not success:
+        raise HTTPException(status_code=404, detail="Track not found")
+    return {"status": "success"}
 
 if __name__ == "__main__":
     import uvicorn

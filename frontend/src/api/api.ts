@@ -41,5 +41,15 @@ export const trackApi = {
             method: 'DELETE',
         });
         if (!response.ok) throw new Error('Failed to delete track');
-    }
+    },
+
+    async updateLyrics(id: number, lyrics: string): Promise<void> {
+        await fetch(`${BASE_URL}/tracks/${id}/lyrics`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ lyrics }),
+        });
+    },
+    
+
 };

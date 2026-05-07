@@ -11,7 +11,6 @@ interface TrackCardProps {
 }
 
 export const TrackCard = ({ track, onDelete, onUpdate, onUpdateBpm }: TrackCardProps) => {
-    // Отладка: удали после проверки. Позволит увидеть, пришел ли путь к файлу.
     console.log(`Track: ${track.title}, File: ${track.file_path}`);
 
     const statuses: TrackStatus[] = ['Idea', 'Recording', 'Mixing', 'Mastered'];

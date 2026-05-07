@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useState, useEffect } from 'react';
 import { trackApi } from '../api/api';
 import { Track } from '../api/types';
-import { Music, FileText, Guitar, Save } from 'lucide-react';
+import { FileText, Guitar, Save } from 'lucide-react';
 import styles from '../App.module.css';
 
 export const Route = createFileRoute('/track/$trackId')({
@@ -15,8 +15,6 @@ function TrackDetailsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Здесь мы будем запрашивать конкретный трек по ID
-    // Пока что можно отфильтровать из общего списка или добавить метод в API
     trackApi.getTracks().then(tracks => {
       const found = tracks.find(t => t.id === Number(trackId));
       setTrack(found || null);

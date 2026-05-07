@@ -11,7 +11,6 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 1. Загрузка данных
   const loadTracks = async () => {
     setIsLoading(true);
     try {
@@ -29,7 +28,6 @@ function App() {
     loadTracks();
   }, []);
 
-  // 2. Добавление нового трека
   const addTrack = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle.trim()) return;
@@ -42,7 +40,6 @@ function App() {
     }
   };
 
-  // 3. Обновление статуса (те самые стрелочки)
   const handleUpdate = async (id: number, status: TrackStatus) => {
     try {
       await trackApi.updateStatus(id, status);
@@ -52,7 +49,6 @@ function App() {
     }
   };
 
-  // 4. Обновление BPM (карандашик)
   const handleUpdateBpm = async (id: number, bpm: number) => {
     try {
       await trackApi.updateBpm(id, bpm);

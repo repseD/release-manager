@@ -21,7 +21,6 @@ function RootComponent() {
           <Link 
             to="/" 
             className={styles.navLink} 
-            // activeProps позволяет задать стиль ссылке, когда мы находимся на этом маршруте
             activeProps={{ className: styles.activeLink }}
           >
             <List size={20} />
