@@ -15,12 +15,6 @@ if not os.path.exists(MUSIC_PATH):
 else:
     app.mount("/audio", StaticFiles(directory=MUSIC_PATH), name="audio")
 
-# AUDIO_DIR = "audio_files"
-# if not os.path.exists(AUDIO_DIR):
-#     os.makedirs(AUDIO_DIR)
-
-# app.mount("/audio", StaticFiles(directory=AUDIO_DIR), name="audio")
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
