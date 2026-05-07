@@ -29,7 +29,7 @@ class TrackRepository:
     def update_bpm(self, track_id: int, new_bpm: int):
         for track in self._storage:
             if track["id"] == track_id:
-                track["bpm"] = new_bpm # <--- Проверь эту строчку
+                track["bpm"] = new_bpm 
                 return track
         return None
 

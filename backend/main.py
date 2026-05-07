@@ -3,7 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from schemas import Track, TrackCreate
 from repository import track_repo
 
+from fastapi.staticfiles import StaticFiles  
+import os
+
 app = FastAPI(title="Band Release Manager API")
+
+AUDIO_DIR = "audio_files"
+if not os.path.exists(AUDIO_DIR):
+    os.makedirs(AUDIO_DIR)
+
+app.mount("/audio", StaticFiles(directory=AUDIO_DIR), name="audio")
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,7 +29,7 @@ def read_tracks():
 def create_track(track: TrackCreate):
     return track_repo.create(track)
 
-@app.patch("/tracks/{track_id}")
+@app.patch("/tracks/{track_id}/status") 
 def update_track_status(track_id: int, status: str):
     updated = track_repo.update_status(track_id, status)
     if not updated:
