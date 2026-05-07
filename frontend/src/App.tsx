@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { trackApi } from './api/api';
 import { Track, TrackStatus } from './api/types';
@@ -17,7 +18,7 @@ function App() {
       const data = await trackApi.getTracks();
       setTracks(data);
       setError(null);
-    } catch (err) {
+    } catch  {
       setError('Не удалось загрузить треки. Проверьте, запущен ли бэкенд.');
     } finally {
       setIsLoading(false);
@@ -35,7 +36,7 @@ function App() {
       await trackApi.createTrack({ title: newTitle, bpm: 120, status: 'Idea' });
       setNewTitle('');
       await loadTracks();
-    } catch (err) {
+    } catch  {
       setError('Ошибка при добавлении трека');
     }
   };
@@ -44,7 +45,7 @@ function App() {
     try {
       await trackApi.updateStatus(id, status);
       await loadTracks();
-    } catch (err) {
+    } catch  {
       setError('Ошибка обновления статуса');
     }
   };
@@ -53,7 +54,7 @@ function App() {
     try {
       await trackApi.updateBpm(id, bpm);
       await loadTracks();
-    } catch (err) {
+    } catch  {
       setError('Ошибка обновления BPM');
     }
   };
@@ -63,7 +64,7 @@ function App() {
     try {
       await trackApi.deleteTrack(id);
       await loadTracks();
-    } catch (err) {
+    } catch  {
       setError('Ошибка при удалении трека');
     }
   };
@@ -78,7 +79,7 @@ function App() {
       </header>
 
       <form onSubmit={addTrack} className={styles.addForm}>
-        <input 
+        <input
           className={styles.input}
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
@@ -96,10 +97,10 @@ function App() {
         {isLoading ? (
           <p style={{ textAlign: 'center', color: '#64748b' }}>Loading...</p>
         ) : (
-          tracks.map(track => (
-            <TrackCard 
-              key={track.id} 
-              track={track} 
+          tracks.map((track) => (
+            <TrackCard
+              key={track.id}
+              track={track}
               onDelete={handleDelete}
               onUpdate={handleUpdate}
               onUpdateBpm={handleUpdateBpm}

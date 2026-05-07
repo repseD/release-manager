@@ -6,7 +6,7 @@ interface TrackState {
   tracks: Track[];
   isLoading: boolean;
   error: string | null;
-  
+
   // Экшены
   fetchTracks: () => Promise<void>;
   addTrack: (data: CreateTrackDto) => Promise<void>;
@@ -26,7 +26,7 @@ export const useTrackStore = create<TrackState>((set, get) => ({
     try {
       const data = await trackApi.getTracks();
       set({ tracks: data, error: null });
-    } catch (err) {
+    } catch  {
       set({ error: 'Failed to load tracks' });
     } finally {
       set({ isLoading: false });
@@ -36,8 +36,8 @@ export const useTrackStore = create<TrackState>((set, get) => ({
   addTrack: async (data) => {
     try {
       await trackApi.createTrack(data);
-      await get().fetchTracks(); 
-    } catch (err) {
+      await get().fetchTracks();
+    } catch  {
       set({ error: 'Failed to add track' });
     }
   },
@@ -48,7 +48,7 @@ export const useTrackStore = create<TrackState>((set, get) => ({
       set((state) => ({
         tracks: state.tracks.filter((t) => t.id !== id),
       }));
-    } catch (err) {
+    } catch  {
       set({ error: 'Failed to delete track' });
     }
   },
@@ -58,7 +58,7 @@ export const useTrackStore = create<TrackState>((set, get) => ({
       await trackApi.updateStatus(id, status);
       // рефетч
       await get().fetchTracks();
-    } catch (err) {
+    } catch  {
       set({ error: 'Failed to update status' });
     }
   },
@@ -67,22 +67,19 @@ export const useTrackStore = create<TrackState>((set, get) => ({
     try {
       await trackApi.updateBpm(id, bpm);
       await get().fetchTracks();
-    } catch (err) {
+    } catch  {
       set({ error: 'Failed to update BPM' });
     }
   },
 
-    updateLyrics: async (id, lyrics) => {
-        try {
-            await trackApi.updateLyrics(id, lyrics);
-            set((state) => ({
-                tracks: state.tracks.map((t) => 
-                    t.id === id ? { ...t, lyrics } : t
-                ),
-            }));
-        } catch (err) {
-            set({ error: 'Не удалось сохранить текст' });
-        }
-    },
-
+  updateLyrics: async (id, lyrics) => {
+    try {
+      await trackApi.updateLyrics(id, lyrics);
+      set((state) => ({
+        tracks: state.tracks.map((t) => (t.id === id ? { ...t, lyrics } : t)),
+      }));
+    } catch  {
+      set({ error: 'Не удалось сохранить текст' });
+    }
+  },
 }));

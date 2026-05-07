@@ -18,18 +18,14 @@ function RootComponent() {
 
         {/* Навигация по маршрутам */}
         <nav className={styles.nav}>
-          <Link 
-            to="/" 
-            className={styles.navLink} 
-            activeProps={{ className: styles.activeLink }}
-          >
+          <Link to="/" className={styles.navLink} activeProps={{ className: styles.activeLink }}>
             <List size={20} />
             <span>Tracks</span>
           </Link>
-          
-          <Link 
-            to="/stats" 
-            className={styles.navLink} 
+
+          <Link
+            to="/stats"
+            className={styles.navLink}
             activeProps={{ className: styles.activeLink }}
           >
             <BarChart2 size={20} />

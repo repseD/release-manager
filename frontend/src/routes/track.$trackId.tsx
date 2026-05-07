@@ -15,8 +15,8 @@ function TrackDetailsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    trackApi.getTracks().then(tracks => {
-      const found = tracks.find(t => t.id === Number(trackId));
+    trackApi.getTracks().then((tracks) => {
+      const found = tracks.find((t) => t.id === Number(trackId));
       setTrack(found || null);
       setLoading(false);
     });
@@ -28,7 +28,7 @@ function TrackDetailsPage() {
   return (
     <div className={styles.detailsPage}>
       <h2 className={styles.title}>{track.title}</h2>
-      
+
       <div className={styles.detailsGrid}>
         {/* Секция с описанием или текстом */}
         <div className={styles.detailsCard}>
@@ -36,8 +36,8 @@ function TrackDetailsPage() {
             <FileText size={20} />
             <span>Lyrics / Notes</span>
           </div>
-          <textarea 
-            className={styles.textarea} 
+          <textarea
+            className={styles.textarea}
             placeholder="Write lyrics or song structure here..."
           />
         </div>
@@ -48,8 +48,8 @@ function TrackDetailsPage() {
             <Guitar size={20} />
             <span>Instruments / Gear</span>
           </div>
-          <textarea 
-            className={styles.textarea} 
+          <textarea
+            className={styles.textarea}
             placeholder="E.g. Gibson Explorer, Neural DSP Nameless..."
           />
         </div>

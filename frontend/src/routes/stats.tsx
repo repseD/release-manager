@@ -1,26 +1,26 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useState, useEffect } from 'react'
-import { trackApi } from '../api/api'
-import { Track } from '../api/types'
-import styles from '../App.module.css'
+import { createFileRoute } from '@tanstack/react-router';
+import { useState, useEffect } from 'react';
+import { trackApi } from '../api/api';
+import { Track } from '../api/types';
+import styles from '../App.module.css';
 
 export const Route = createFileRoute('/stats')({
   component: StatsPage,
-})
+});
 
 function StatsPage() {
-  const [tracks, setTracks] = useState<Track[]>([])
+  const [tracks, setTracks] = useState<Track[]>([]);
 
   useEffect(() => {
-    trackApi.getTracks().then(setTracks)
-  }, [])
+    trackApi.getTracks().then(setTracks);
+  }, []);
 
   const stats = {
-    Idea: tracks.filter(t => t.status === 'Idea').length,
-    Recording: tracks.filter(t => t.status === 'Recording').length,
-    Mixing: tracks.filter(t => t.status === 'Mixing').length,
-    Mastered: tracks.filter(t => t.status === 'Mastered').length,
-  }
+    Idea: tracks.filter((t) => t.status === 'Idea').length,
+    Recording: tracks.filter((t) => t.status === 'Recording').length,
+    Mixing: tracks.filter((t) => t.status === 'Mixing').length,
+    Mastered: tracks.filter((t) => t.status === 'Mastered').length,
+  };
 
   return (
     <div className={styles.trackList}>
@@ -34,5 +34,5 @@ function StatsPage() {
         ))}
       </div>
     </div>
-  )
+  );
 }
